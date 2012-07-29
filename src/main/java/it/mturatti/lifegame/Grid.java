@@ -26,6 +26,7 @@ public class Grid {
         this.rows = rows;
         this.cols = cols;
         this.matrixOfCells = new Cell[rows][cols];
+        log.info("Grid with [{}] cells created.",rows * cols);
     }
 
     public void putCell(Cell newCell) {
@@ -44,7 +45,18 @@ public class Grid {
                 }
             }
         }
-        log.info("Grid with [{}] cells created. Total alive: [{}]\n", rows * cols, grid.countTotalAlive());
+        log.info("newRandomInstance created.");
+        return grid;
+    }
+
+    public static Grid newEmptyInstance(int rows, int cols) {
+        final Grid grid = new Grid(rows, cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                grid.putCell(Cell.newDeadInstance(i, j));
+            }
+        }
+        log.info("newEmptyInstance created.");
         return grid;
     }
 
@@ -64,6 +76,7 @@ public class Grid {
                 }
             }
         }
+        log.info("Next generation computed.");
     }
 
     public int countAliveNeighbours(Cell cell) {
@@ -85,9 +98,10 @@ public class Grid {
                 totalAlive += cellAliveAsInt(i, j);
             }
         }
+        log.info("Total alive: [{}]\n", totalAlive);
         return totalAlive;
     }
-    
+
     public boolean isCellAlive(int row, int col) {
         return matrixOfCells[row][col].isAlive();
     }
