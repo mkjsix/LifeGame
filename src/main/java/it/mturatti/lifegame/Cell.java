@@ -8,20 +8,24 @@ package it.mturatti.lifegame;
  *
  * @author mturatti
  */
-public class Cell {
+final public class Cell {
 
     public final int row;
     public final int col;
-    public final boolean isAlive;
+    public final boolean alive;
+    public static final boolean DEAD = false;
+    public static final boolean ALIVE = true;
 
-    public Cell(int row, int col, boolean isAlive) {
+    public Cell(int row, int col, boolean alive) {
         if (row < 0 || col < 0) {
             throw new IllegalArgumentException("Cell coordinates can't be negative.");
         }
         this.row = row;
         this.col = col;
-        this.isAlive = isAlive;
+        this.alive = alive;
     }
-    
-    
+
+    public boolean isAlive() {
+        return this.alive;
+    }
 }

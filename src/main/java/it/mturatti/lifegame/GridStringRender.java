@@ -21,7 +21,7 @@ public class GridStringRender {
         for (int i = 0; i < grid.rows; i++) {
             builder.append("|");
             for (int j = 0; j < grid.cols; j++) {
-                if (grid.cellAliveAsInt(i, j) == 1) {
+                if (grid.isCellAlive(i, j)) {
                     builder.append("X|");
                 } else {
                     builder.append("_|");

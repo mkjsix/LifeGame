@@ -1,6 +1,6 @@
 package it.mturatti.lifegame;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -8,12 +8,6 @@ import org.junit.Test;
  */
 public class GridTest {
 
-//    @Test
-//    public void testPrint() {
-//        Grid myGrid = Grid.createRandomGrid(6, 10);
-//        System.out.print(myGrid.toString());
-//        assertTrue(true);
-//    }
     @Test(expected = IllegalArgumentException.class)
     public void gridTooSmall() {
         Grid.createRandomGrid(2, 2);
@@ -25,18 +19,23 @@ public class GridTest {
         Grid myGrid = Grid.createRandomGrid(16, 20);
         GridStringRender render = new GridStringRender(myGrid);
         int previousAlive = 0;
+        int stableGenerations = 0;
 
-        while (myGrid.getTotalAlive() >= 0) {
-            System.out.println("---------------------------------------\n");
+        while (stableGenerations < 4) {
+            
             System.out.println(render.asString());
 
             previousAlive = myGrid.getTotalAlive();
             myGrid.computeNextGeneration();
-            if (previousAlive - myGrid.getTotalAlive() == 0) {
-                System.out.println("---------------- END --------------------\n");
-                System.out.println(render.asString());
-                break;
+            int totalAlive = myGrid.getTotalAlive();
+            if (previousAlive - totalAlive == 0) {
+                ++stableGenerations;
             }
+            System.out.println("---------------------------------------\n");
+            System.out.format("[previousAlive: %d] [Alive: %d] [stableGenerations: %d]\n",
+                    previousAlive, totalAlive, stableGenerations);
+            System.out.println("---------------------------------------\n");
         }
+        Assert.assertTrue(stableGenerations >= 4);
     }
 }
