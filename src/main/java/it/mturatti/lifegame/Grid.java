@@ -32,19 +32,19 @@ public class Grid {
         matrixOfCells[newCell.row][newCell.col] = newCell;
     }
 
-    public static Grid createRandomGrid(int rows, int cols) {
+    public static Grid newRandomInstance(int rows, int cols) {
         final Random random = new Random();
         final Grid grid = new Grid(rows, cols);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (random.nextInt(100) > 75) {
-                    grid.putCell(new Cell(i, j, Cell.ALIVE));
+                    grid.putCell(Cell.newAliveInstance(i, j));
                 } else {
-                    grid.putCell(new Cell(i, j, Cell.DEAD));
+                    grid.putCell(Cell.newDeadInstance(i, j));
                 }
             }
         }
-        log.info("totalAlive: [{}]\n", grid.getTotalAlive());
+        log.info("Grid with [{}] cells created. Total alive: [{}]\n", rows * cols, grid.countTotalAlive());
         return grid;
     }
 
@@ -55,11 +55,11 @@ public class Grid {
                 int aliveNeighbours = countAliveNeighbours(cell);
                 if (cell.isAlive()) {
                     if (aliveNeighbours < 2 || aliveNeighbours > 3) {
-                        this.putCell(new Cell(i, j, Cell.DEAD));
+                        this.putCell(Cell.newDeadInstance(i, j));
                     }
                 } else {
                     if (aliveNeighbours == 3) {
-                        this.putCell(new Cell(i, j, Cell.ALIVE));
+                        this.putCell(Cell.newAliveInstance(i, j));
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class Grid {
         return alives;
     }
 
-    public int getTotalAlive() {
+    public int countTotalAlive() {
         int totalAlive = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {

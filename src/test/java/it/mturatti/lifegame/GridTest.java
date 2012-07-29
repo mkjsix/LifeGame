@@ -10,13 +10,13 @@ public class GridTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void gridTooSmall() {
-        Grid.createRandomGrid(2, 2);
+        Grid.newRandomInstance(2, 2);
     }
 
     @Test
     public void testNextGeneration() {
 
-        Grid myGrid = Grid.createRandomGrid(16, 20);
+        Grid myGrid = Grid.newRandomInstance(16, 20);
         GridStringRender render = new GridStringRender(myGrid);
         int previousAlive = 0;
         int stableGenerations = 0;
@@ -25,9 +25,9 @@ public class GridTest {
             
             System.out.println(render.asString());
 
-            previousAlive = myGrid.getTotalAlive();
+            previousAlive = myGrid.countTotalAlive();
             myGrid.computeNextGeneration();
-            int totalAlive = myGrid.getTotalAlive();
+            int totalAlive = myGrid.countTotalAlive();
             if (previousAlive - totalAlive == 0) {
                 ++stableGenerations;
             }
