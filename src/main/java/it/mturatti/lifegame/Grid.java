@@ -33,12 +33,15 @@ public class Grid {
         matrixOfCells[newCell.row][newCell.col] = newCell;
     }
 
-    public static Grid newRandomInstance(int rows, int cols) {
+    public static Grid newRandomInstance(int rows, int cols, int initialAliveRatio) {
+        if (initialAliveRatio < 0 || initialAliveRatio > 100) {
+            throw new IllegalArgumentException("initialAliveRatio must be an integer in [0, 100]");
+        }
         final Random random = new Random();
         final Grid grid = new Grid(rows, cols);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (random.nextInt(100) > 75) {
+                if (random.nextInt(100) < initialAliveRatio) {
                     grid.putCell(Cell.newAliveInstance(i, j));
                 } else {
                     grid.putCell(Cell.newDeadInstance(i, j));
@@ -98,7 +101,7 @@ public class Grid {
                 totalAlive += cellAliveAsInt(i, j);
             }
         }
-        log.info("Total alive: [{}]\n", totalAlive);
+        log.info("Total alive: [{}]", totalAlive);
         return totalAlive;
     }
 
