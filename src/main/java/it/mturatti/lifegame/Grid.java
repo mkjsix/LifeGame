@@ -17,6 +17,7 @@ public class Grid {
     public final int rows;
     public final int cols;
     private final Cell matrixOfCells[][];
+    private ComputationStrategy computation = new DefaultComputationStrategy();
     private static final Logger log = LoggerFactory.getLogger(Grid.class);
 
     private Grid(int rows, int cols) {
@@ -26,11 +27,11 @@ public class Grid {
         this.rows = rows;
         this.cols = cols;
         this.matrixOfCells = new Cell[rows][cols];
-        log.info("Grid with [{}] cells created.",rows * cols);
+        log.info("Grid with [{}] cells created.", rows * cols);
     }
-
-    public void putCell(Cell newCell) {
-        matrixOfCells[newCell.row][newCell.col] = newCell;
+    
+    public void setComputationStrategy(ComputationStrategy computation) {
+        this.computation = computation;
     }
 
     public static Grid newRandomInstance(int rows, int cols, int initialAliveRatio) {
@@ -63,20 +64,16 @@ public class Grid {
         return grid;
     }
 
+    public void putCell(Cell newCell) {
+        matrixOfCells[newCell.row][newCell.col] = newCell;
+    }
+
     public void computeNextGeneration() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 final Cell cell = matrixOfCells[i][j];
                 int aliveNeighbours = countAliveNeighbours(cell);
-                if (cell.isAlive()) {
-                    if (aliveNeighbours < 2 || aliveNeighbours > 3) {
-                        this.putCell(Cell.newDeadInstance(i, j));
-                    }
-                } else {
-                    if (aliveNeighbours == 3) {
-                        this.putCell(Cell.newAliveInstance(i, j));
-                    }
-                }
+                computation.execute(this, cell, aliveNeighbours, i, j);
             }
         }
         log.info("Next generation computed.");
@@ -106,7 +103,7 @@ public class Grid {
     }
 
     public boolean isCellAlive(int row, int col) {
-        return matrixOfCells[row][col].isAlive();
+        return matrixOfCells[row][col].isAlive;
     }
 
     private int west(Cell cell) {
@@ -174,6 +171,7 @@ public class Grid {
     }
 
     private int cellAliveAsInt(int row, int col) {
-        return matrixOfCells[row][col].isAlive() ? 1 : 0;
+        return matrixOfCells[row][col].isAlive ? 1 : 0;
     }
+
 }

@@ -49,6 +49,7 @@ public class GridTest {
         final int MAX_GENERATIONS = 100;
 
         Grid myGrid = Grid.newRandomInstance(16, 16, 25);
+        
         GridStringRender render = new GridStringRender(myGrid);
         int previousAlive = 0;
         int stableGenerations = 0;

@@ -12,7 +12,7 @@ final public class Cell {
 
     public final int row;
     public final int col;
-    public final boolean alive;
+    public final boolean isAlive;
     public static final boolean DEAD = false;
     public static final boolean ALIVE = true;
 
@@ -22,7 +22,7 @@ final public class Cell {
         }
         this.row = row;
         this.col = col;
-        this.alive = alive;
+        this.isAlive = alive;
     }
     
     public static Cell newDeadInstance(int row, int col) {
@@ -33,7 +33,4 @@ final public class Cell {
         return new Cell(row, col, ALIVE);
     }
 
-    public boolean isAlive() {
-        return this.alive;
-    }
 }
