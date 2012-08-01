@@ -29,7 +29,7 @@ public class Grid {
         this.matrixOfCells = new Cell[rows][cols];
         log.info("Grid with [{}] cells created.", rows * cols);
     }
-    
+
     public void setComputationStrategy(ComputationStrategy computation) {
         this.computation = computation;
     }
@@ -107,71 +107,54 @@ public class Grid {
     }
 
     private int west(Cell cell) {
-        int col = goWest(cell);
-        return cellAliveAsInt(cell.row, col);
+        return cellAliveAsInt(cell.row, goWest(cell));
     }
 
     private int east(Cell cell) {
-        int col = goEast(cell);
-        return cellAliveAsInt(cell.row, col);
+        return cellAliveAsInt(cell.row, goEast(cell));
     }
 
     private int north(Cell cell) {
-        int row = goNorth(cell);
-        return cellAliveAsInt(row, cell.col);
+        return cellAliveAsInt(goNorth(cell), cell.col);
     }
 
     private int south(Cell cell) {
-        int row = goSouth(cell);
-        return cellAliveAsInt(row, cell.col);
+        return cellAliveAsInt(goSouth(cell), cell.col);
     }
 
     private int northWest(Cell cell) {
-        int row = goNorth(cell);
-        int col = goWest(cell);
-        return cellAliveAsInt(row, col);
+        return cellAliveAsInt(goNorth(cell), goWest(cell));
     }
 
     private int northEast(Cell cell) {
-        int row = goNorth(cell);
-        int col = goEast(cell);
-        return cellAliveAsInt(row, col);
+        return cellAliveAsInt(goNorth(cell), goEast(cell));
     }
 
     private int southWest(Cell cell) {
-        int row = goSouth(cell);
-        int col = goWest(cell);
-        return cellAliveAsInt(row, col);
+        return cellAliveAsInt(goSouth(cell), goWest(cell));
     }
 
     private int southEast(Cell cell) {
-        int row = goSouth(cell);
-        int col = goEast(cell);
-        return cellAliveAsInt(row, col);
+        return cellAliveAsInt(goSouth(cell), goEast(cell));
     }
 
     private int goWest(Cell cell) {
-        int col = cell.col < this.cols - 1 ? cell.col + 1 : 0;
-        return col;
+        return cell.col < this.cols - 1 ? cell.col + 1 : 0;
     }
 
     private int goEast(Cell cell) {
-        int col = cell.col > 0 ? cell.col - 1 : this.cols - 1;
-        return col;
+        return cell.col > 0 ? cell.col - 1 : this.cols - 1;
     }
 
     private int goNorth(Cell cell) {
-        int row = cell.row > 0 ? cell.row - 1 : this.rows - 1;
-        return row;
+        return cell.row > 0 ? cell.row - 1 : this.rows - 1;
     }
 
     private int goSouth(Cell cell) {
-        int row = cell.row < this.rows - 1 ? cell.row + 1 : 0;
-        return row;
+        return cell.row < this.rows - 1 ? cell.row + 1 : 0;
     }
 
     private int cellAliveAsInt(int row, int col) {
         return matrixOfCells[row][col].isAlive ? 1 : 0;
     }
-
 }
