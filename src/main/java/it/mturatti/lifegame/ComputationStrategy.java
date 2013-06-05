@@ -5,11 +5,10 @@
 package it.mturatti.lifegame;
 
 /**
- *
- * @author mturatti
+ * @author  mturatti
  */
 public interface ComputationStrategy {
 
     void execute(final Grid grid, final Cell cell, int aliveNeighbours, int i, int j);
-    
+
 }

@@ -49,7 +49,7 @@ public class GridTest {
         final int MAX_GENERATIONS = 100;
 
         Grid myGrid = Grid.newRandomInstance(16, 16, 25);
-        
+
         GridStringRender render = new GridStringRender(myGrid);
         int previousAlive = 0;
         int stableGenerations = 0;
@@ -61,16 +61,19 @@ public class GridTest {
 
             previousAlive = myGrid.countTotalAlive();
             myGrid.computeNextGeneration();
+
             int totalAlive = myGrid.countTotalAlive();
             if (previousAlive - totalAlive == 0) {
                 ++stableGenerations;
             } else {
                 stableGenerations = 0;
             }
+
             System.out.println("---------------------------------------");
             System.out.format("countGenerations: [%d], stableGenerations: [%d]\n", countGenerations, stableGenerations);
             System.out.println("---------------------------------------");
         }
+
         Assert.assertTrue(stableGenerations >= 3 || countGenerations >= MAX_GENERATIONS);
     }
 }

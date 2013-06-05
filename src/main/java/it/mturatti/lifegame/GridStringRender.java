@@ -5,17 +5,16 @@
 package it.mturatti.lifegame;
 
 /**
- *
- * @author mturatti
+ * @author  mturatti
  */
 public class GridStringRender {
-    
+
     private final Grid grid;
-    
-    GridStringRender(Grid grid) {
+
+    GridStringRender(final Grid grid) {
         this.grid = grid;
     }
-    
+
     public String asString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < grid.rows; i++) {
@@ -27,9 +26,11 @@ public class GridStringRender {
                     builder.append("_|");
                 }
             }
+
             builder.append("\n");
         }
+
         return builder.toString();
     }
-    
+
 }

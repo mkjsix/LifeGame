@@ -5,10 +5,9 @@
 package it.mturatti.lifegame;
 
 /**
- *
- * @author mturatti
+ * @author  mturatti
  */
-final public class Cell {
+public final class Cell {
 
     public final int row;
     public final int col;
@@ -16,20 +15,21 @@ final public class Cell {
     public static final boolean DEAD = false;
     public static final boolean ALIVE = true;
 
-    private Cell(int row, int col, boolean alive) {
+    private Cell(final int row, final int col, final boolean alive) {
         if (row < 0 || col < 0) {
             throw new IllegalArgumentException("Cell coordinates can't be negative.");
         }
+
         this.row = row;
         this.col = col;
         this.isAlive = alive;
     }
-    
-    public static Cell newDeadInstance(int row, int col) {
+
+    public static Cell newDeadInstance(final int row, final int col) {
         return new Cell(row, col, DEAD);
     }
-    
-    public static Cell newAliveInstance(int row, int col) {
+
+    public static Cell newAliveInstance(final int row, final int col) {
         return new Cell(row, col, ALIVE);
     }
 

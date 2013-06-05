@@ -4,13 +4,12 @@
  */
 package it.mturatti.lifegame.ui;
 
-import it.mturatti.lifegame.Grid;
-import java.awt.Color;
 import javax.swing.table.AbstractTableModel;
 
+import it.mturatti.lifegame.Grid;
+
 /**
- *
- * @author mturatti
+ * @author  mturatti
  */
 public class GridTableModel extends AbstractTableModel {
 
@@ -18,7 +17,7 @@ public class GridTableModel extends AbstractTableModel {
     private final int rowCount;
     private final int colCount;
 
-    public GridTableModel(Grid grid) {
+    public GridTableModel(final Grid grid) {
         this.grid = grid;
         this.rowCount = grid.rows;
         this.colCount = grid.cols;
@@ -35,12 +34,12 @@ public class GridTableModel extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int row, int col) {
+    public Object getValueAt(final int row, final int col) {
         return this.grid.isCellAlive(row, col) ? '█' : 0;
     }
 
     @Override
-    public boolean isCellEditable(int row, int col) {
+    public boolean isCellEditable(final int row, final int col) {
         return false;
     }
 }

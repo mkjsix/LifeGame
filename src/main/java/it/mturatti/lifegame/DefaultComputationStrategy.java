@@ -5,13 +5,12 @@
 package it.mturatti.lifegame;
 
 /**
- *
- * @author mturatti
+ * @author  mturatti
  */
 public class DefaultComputationStrategy implements ComputationStrategy {
 
     @Override
-    public void execute(final Grid grid, final Cell cell, int aliveNeighbours, int i, int j) {
+    public void execute(final Grid grid, final Cell cell, final int aliveNeighbours, final int i, final int j) {
         if (cell.isAlive) {
             if (aliveNeighbours < 2 || aliveNeighbours > 3) {
                 grid.putCell(Cell.newDeadInstance(i, j));
